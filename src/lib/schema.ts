@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, integer } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -48,4 +48,30 @@ export const verification = pgTable("verification", {
   expiresAt: timestamp("expiresAt").notNull(),
   createdAt: timestamp("createdAt").defaultNow(),
   updatedAt: timestamp("updatedAt").defaultNow(),
+});
+
+export const dachshunds = pgTable("dachshunds", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  imageUrl: text("imageUrl").notNull(),
+  description: text("description"),
+  wins: integer("wins").notNull().default(0),
+  losses: integer("losses").notNull().default(0),
+  rating: integer("rating").notNull().default(1000), // ELO-style rating starting at 1000
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
+  updatedAt: timestamp("updatedAt").notNull().defaultNow(),
+});
+
+export const votes = pgTable("votes", {
+  id: text("id").primaryKey(),
+  userId: text("userId")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  winnerId: text("winnerId")
+    .notNull()
+    .references(() => dachshunds.id, { onDelete: "cascade" }),
+  loserId: text("loserId")
+    .notNull()
+    .references(() => dachshunds.id, { onDelete: "cascade" }),
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
 });

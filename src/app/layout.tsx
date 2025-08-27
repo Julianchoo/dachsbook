@@ -16,9 +16,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Agentic Coding Boilerplate",
+  title: "Dachsbook - Vote for the Cutest Dachshunds!",
   description:
-    "Complete agentic coding boilerplate with authentication, database, AI integration, and modern tooling - perfect for building AI-powered applications and autonomous agents by Leon van Zyl",
+    "Vote for your favorite dachshunds in fun head-to-head matchups! See which wiener dogs come out on top in our community ranking system.",
 };
 
 export default function RootLayout({
